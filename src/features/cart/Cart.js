@@ -36,7 +36,7 @@ const Cart = () => {
   const [open, setOpen] = useState(true);
   return (
     <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 shadow-md mt-10 bg-white">
-        <h1 className="text-3xl text-center text-bold">Cart</h1>
+        <h1 className="text-3xl text-center text-bold py-4">Cart</h1>
       <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
         <div className="flow-root">
           <ul role="list" className="-my-6 divide-y divide-gray-200">
@@ -96,12 +96,12 @@ const Cart = () => {
           Shipping and taxes calculated at checkout.
         </p>
         <div className="mt-6">
-          <a
+          <Link to='/checkout'
             href="#"
             className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
           >
             Checkout
-          </a>
+          </Link>
         </div>
         <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
           <p>
@@ -111,7 +111,7 @@ const Cart = () => {
               className="font-medium text-indigo-600 hover:text-indigo-500"
               onClick={() => setOpen(false)}
             >
-              <Link to='/'>Continue Shopping</Link>>
+              <Link to='/'>Continue Shopping</Link>
               <span aria-hidden="true"> &rarr;</span>
             </button>
           </p>

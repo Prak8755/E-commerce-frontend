@@ -8,6 +8,8 @@ import SignUpPage from "../src/pages/SignUpPage";
 import Home from "./pages/Home";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import CartPage from "./pages/CartPage";
+import CheckOut from "./pages/CheckOut";
+import ProductDetailPage from "./pages/ProductDetailPage";
 
 
 function App() {
@@ -28,6 +30,14 @@ function App() {
     {
       path: "/cart",
       element: <CartPage />,
+    },
+    {
+      path: "/checkout",
+      element: <CheckOut />,
+    },
+    {
+      path: "/productdetails",
+      element: <ProductDetailPage />,
     },
   ]);
   return (
