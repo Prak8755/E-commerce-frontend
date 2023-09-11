@@ -2,6 +2,8 @@ import {  Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, ShoppingCartIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { selectCart } from '../cart/CartSlice'
 
 const user = {
   name: 'Tom Cook',
@@ -17,9 +19,9 @@ const navigation = [
   { name: 'Reports', href: '#', current: false },
 ]
 const userNavigation = [
-  { name: 'Your Profile', href: '#' },
-  { name: 'Settings', href: '#' },
-  { name: 'Sign out', href: '#' },
+  { name: 'Your Profile', link: '/' },
+  { name: 'Settings', link: '/' },
+  { name: 'Sign out', link: '/login' },
 ]
 
 function classNames(...classes) {
@@ -28,6 +30,8 @@ function classNames(...classes) {
 
 
 const Navbar = ({children}) => {
+
+  const items=useSelector(selectCart);
 
 
   return (
@@ -79,7 +83,7 @@ const Navbar = ({children}) => {
                         <ShoppingCartIcon className="h-6 w-6" aria-hidden="true" />
                        
                       </Link>
-                      <span className="inline-flex items-center rounded-md bg-yellow-50 px-2 py-1 text-xs font-medium text-yellow-800 ring-1 ring-inset ring-yellow-600/20 mb-7 -ml-2 " >3</span>
+                      <span className="inline-flex items-center rounded-md bg-yellow-50 px-2 py-1 text-xs font-medium text-yellow-800 ring-1 ring-inset ring-yellow-600/20 mb-7 -ml-2 " >{items.length}</span>
                       {/* Profile dropdown */}
                       <Menu as="div" className="relative ml-3">
                         <div>
@@ -102,15 +106,15 @@ const Navbar = ({children}) => {
                             {userNavigation.map((item) => (
                               <Menu.Item key={item.name}>
                                 {({ active }) => (
-                                  <a
-                                    href={item.href}
+                                  <Link to={item.link}
+                                
                                     className={classNames(
                                       active ? 'bg-gray-100' : '',
                                       'block px-4 py-2 text-sm text-gray-700'
                                     )}
                                   >
                                     {item.name}
-                                  </a>
+                                  </Link>
                                 )}
                               </Menu.Item>
                             ))}
@@ -168,18 +172,20 @@ const Navbar = ({children}) => {
                    
                       <ShoppingCartIcon className="h-6 w-6" aria-hidden="true" />
                     </Link>
-                    <span className="inline-flex items-center rounded-md bg-yellow-50 px-2 py-1 text-xs font-medium text-yellow-800 ring-1 ring-inset ring-yellow-600/20 mb-7 -ml-2 " >3</span>
+{items.length>0&&items.length>0&&<span className="inline-flex items-center rounded-md bg-yellow-50 px-2 py-1 text-xs font-medium text-yellow-800 ring-1 ring-inset ring-yellow-600/20 mb-7 -ml-2 " >{items.length}</span>}
                   </div>
                   <div className="mt-3 space-y-1 px-2">
                     {userNavigation.map((item) => (
+                  
                       <Disclosure.Button
                         key={item.name}
                         as="a"
-                        href={item.href}
+          
                         className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white"
                       >
                         {item.name}
                       </Disclosure.Button>
+               
                     ))}
                   </div>
                 </div>

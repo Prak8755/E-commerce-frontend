@@ -1,11 +1,20 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
+import { createUserAsync, selectLoggedInUser } from '../authSlice';
+
 
 
 export function SignUp() {
+  const dispatch=useDispatch();
+  const {register,watch,handleSubmit,formState:{errors}}=useForm();
+
+const user=useSelector(selectLoggedInUser)
 
   return (
     <div>
+        {user&&<Navigate to='/' replace={true}></Navigate>}
        <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <img
@@ -19,7 +28,7 @@ export function SignUp() {
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form className="space-y-6" action="#" method="POST">
+          <form noValidate className="space-y-6" onSubmit={handleSubmit(data=>{dispatch(createUserAsync({email:data.email,password:data.password}))})}>
             <div>
               <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
                 Email address
@@ -27,13 +36,13 @@ export function SignUp() {
               <div className="mt-2">
                 <input
                   id="email"
-                  name="email"
+               { ...register('email',{required:'email is mandatory',pattern:{value:/\b[\w\.-]+@[\w\.-]+\.\w{2,4}\b/gi,message:'email not valid'}})}
                   type="email"
-                  autoComplete="email"
-                  required
+                
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
+              {errors.email&&<p className='text-red-600 text-bold'>{errors.email.message}</p>}
             </div>
 
             <div>
@@ -46,30 +55,33 @@ export function SignUp() {
               <div className="mt-2">
                 <input
                   id="password"
-                  name="password"
+                  { ...register('password',{required:'password is mandatory',pattern:{value:/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm,message:`- at least 8 characters\n
+                  -- must contain at least 1 uppercase letter, 1 lowercase letter, and 1 number\n
+                  -- Can contain special characters`}})}
                   type="password"
-                  autoComplete="current-password"
-                  required
+               
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
                 
               </div>
+              {errors.password&&<p className='text-red-600 text-bold'>{errors.password.message}</p>}
             </div>
 
             <div>
             <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
                 Confirm  Password
                 </label>
-              <div className="mt-2">
-              <input
-                  id="confirm-password"
-                  name="password"
+             <div className="mt-2">
+                <input
+                  id="confirmPassword"
+                  { ...register('confirmPassword',{required:'confirm password is mandatory',validate:(value,formValues)=>value===formValues.password||'password is not matching'})}
                   type="password"
-                  autoComplete="current-password"
-                  required
+               
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
+                
               </div>
+              {errors.confirmPassword&&<p className='text-red-600 text-bold'>{errors.confirmPassword.message}</p>}
             </div>
 
             <div>
