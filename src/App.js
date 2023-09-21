@@ -20,6 +20,9 @@ import { fetchedLoggedInUserAsync, selectUserInfo } from "./features/user/userSl
 import { selectLoggedInUser } from "./features/auth/authSlice";
 import Logout from "./pages/Logout";
 import { ForgotPasswordPage } from "./pages/ForgotPasswordPage";
+import ProtectedAdmin from "./features/Admin/ProtectedAdmin";
+import AdminHome from "./pages/AdminHome";
+import AdminProductDetailPage from "./pages/AdminProductDetailPage";
 
 
 const AppRouter = createBrowserRouter([
@@ -27,7 +30,12 @@ const AppRouter = createBrowserRouter([
     path: "/",
     element:<Protected><Home /></Protected> 
   },
-
+  {
+    path: "/admin",
+    element:<ProtectedAdmin>
+      <AdminHome></AdminHome>
+    </ProtectedAdmin>
+  },
   {
     path: "/login",
     element: <LoginPage />,
@@ -55,6 +63,10 @@ const AppRouter = createBrowserRouter([
   {
     path: "/product-details/:id",
     element: <Protected><ProductDetailPage /></Protected>
+  },
+  {
+    path: "/admin/product-details/:id",
+    element: <ProtectedAdmin><AdminProductDetailPage /></ProtectedAdmin>
   },
   {
     path: "/orders",

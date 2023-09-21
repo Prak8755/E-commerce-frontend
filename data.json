@@ -2347,6 +2347,7 @@
     {
       "email": "abc@gmail.com",
       "password": "Prakash@123",
+      "role": "user",
       "id": 1,
       "address": [
         {
@@ -2381,6 +2382,7 @@
     {
       "email": "demo@gmail.com",
       "password": "Abc@123123",
+      "role": "user",
       "id": 2,
       "address": [
         {
@@ -2393,6 +2395,13 @@
           "pincode": "248140"
         }
       ]
+    },
+    {
+      "email": "admin@gmail.com",
+      "password": "Admin@123",
+      "address": [],
+      "role": "admin",
+      "id": 3
     }
   ],
   "cart": [

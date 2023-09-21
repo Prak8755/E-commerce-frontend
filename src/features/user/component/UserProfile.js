@@ -52,6 +52,8 @@ const [showAddAddress,setShowAddAddress]=useState(false);
       <div className="border p-10 shadow-md">
         <h1 className="text-2xl font-bold">Name:{user.name}</h1>
         <h1 className="text-2xl font-bold border-b-2 border-b-stone-300 ">Email address:{user.email}</h1>
+{       user.role==='admin' &&<h1 className="text-2xl font-bold border-b-2 border-b-stone-300 ">Role:{user.role}</h1>
+}
         <button
                onClick={function(){setShowAddAddress(true);setSelectedEditIndex(-1)}}
                     type="button"
