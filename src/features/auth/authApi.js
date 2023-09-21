@@ -10,6 +10,7 @@ export function createUser(userData) {
         headers:{'content-type':'application/json'},
       });
       const data=await response.json();
+      
        resolve({data})
      }
     );
@@ -40,4 +41,29 @@ rej({message:'user not found .please try again'})
      }
     );
   }
+
+  //when user signs out 
+  export function signOut(userId) {
+   return new Promise(async function(res){
+    //todo-to delete user from server side will be done with backend
+res({data:'success'})
+   })
+  }
+
+
+  //to update user with details like address, contact,email etc
+//this logic is extracted to user component
+  // export function updateUser(user) {
+  //   return new Promise(async(resolve) =>
+  //    {
+  //     const response=await fetch('http://localhost:8080/users/'+user.id,{
+  //       method:'PATCH',
+  //       body:JSON.stringify(user),
+  //       headers:{'content-type':'application/json'},
+  //     });
+  //     const data=await response.json();
+  //      resolve({data})
+  //    }
+  //   );
+  // }
   

@@ -19,9 +19,9 @@ const navigation = [
   { name: 'Reports', href: '#', current: false },
 ]
 const userNavigation = [
-  { name: 'Your Profile', link: '/' },
-  { name: 'Settings', link: '/' },
-  { name: 'Sign out', link: '/login' },
+  { name: 'Your Profile', link: '/profile' },
+  { name: ' My Orders', link: '/orders' },
+  { name: 'Sign out', link: '/logout' },
 ]
 
 function classNames(...classes) {
@@ -74,7 +74,7 @@ const Navbar = ({children}) => {
                   </div>
                   <div className="hidden md:block">
                     <div className="ml-4 flex items-center md:ml-6">
-                      <Link to='cart'
+                      <Link to='/cart'
                         type="button"
                         className="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
                       >
@@ -83,7 +83,7 @@ const Navbar = ({children}) => {
                         <ShoppingCartIcon className="h-6 w-6" aria-hidden="true" />
                        
                       </Link>
-                      <span className="inline-flex items-center rounded-md bg-yellow-50 px-2 py-1 text-xs font-medium text-yellow-800 ring-1 ring-inset ring-yellow-600/20 mb-7 -ml-2 " >{items.length}</span>
+                      {items.length>0&&<span className="inline-flex items-center rounded-md bg-yellow-50 px-2 py-1 text-xs font-medium text-yellow-800 ring-1 ring-inset ring-yellow-600/20 mb-7 -ml-2 " >{items.length}</span>}
                       {/* Profile dropdown */}
                       <Menu as="div" className="relative ml-3">
                         <div>

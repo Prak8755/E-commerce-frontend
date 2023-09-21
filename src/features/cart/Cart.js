@@ -1,28 +1,33 @@
 import React from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import { addQuantityAsync,  selectCart } from "./CartSlice";
-
-
+import { Link, Navigate} from "react-router-dom";
+import { addQuantityAsync,  deleteItemFromCartAsync,   selectCart } from "./CartSlice";
 
 
 
 const Cart = () => {
+
+
   const dispatch=useDispatch();
 
   const items=useSelector(selectCart);
 
-const arr=items.map(e=>e.price);
-
-const subTotal=arr.reduce((acc,curr)=>{ return acc=acc+curr});
+const subTotal=items.reduce((amount,curr)=>curr.price*curr.quantity+amount,0)
 const totalItems=items.reduce((acc,curr)=>curr.quantity+acc,0);
 
 function handleQuantity(e,item){
 dispatch(addQuantityAsync({...item,quantity:+e.target.value}))}
 
+function handleDelete(e,id){
+  dispatch(deleteItemFromCartAsync(id))
+}
+
   const [open, setOpen] = useState(true);
+
   return (
+   <>
+   {!items.length && <Navigate to='/' replace={true}></Navigate>}
     <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 shadow-md mt-10 bg-white">
         <h1 className="text-3xl text-center text-bold py-4">Cart</h1>
       <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
@@ -63,6 +68,7 @@ dispatch(addQuantityAsync({...item,quantity:+e.target.value}))}
 
                     <div className="flex">
                       <button
+                      onClick={e=>handleDelete(e,product.id)}
                         type="button"
                         className="font-medium text-indigo-600 hover:text-indigo-500"
                       >
@@ -114,6 +120,7 @@ dispatch(addQuantityAsync({...item,quantity:+e.target.value}))}
         </div>
       </div>
     </div>
+   </>
   );
 };
 

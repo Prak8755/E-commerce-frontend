@@ -43,7 +43,7 @@ export default function ProductDetails() {
   const [selectedSize, setSelectedSize] = useState(sizes[2]);
 
   const product=useSelector(selectProductById);
-  console.log(product);
+
   const dispatch=useDispatch();
 
 const params=useParams();
@@ -51,14 +51,16 @@ const {id}=params;
 
 const user=useSelector(selectLoggedInUser);
 
-const cart=useSelector(selectCart);
+
 
 
 
 //for adding product into cart
 function handleCart(e){
   e.preventDefault();
-dispatch(addToCartAsync({...product,quantity:1,user:user.id}))
+const newItem={...product,quantity:1,user:user.id};
+delete newItem['id']
+dispatch(addToCartAsync(newItem))
 }
 
 
@@ -67,6 +69,8 @@ dispatch(fetchProductByIdAsync(id))
 },[dispatch,id])
 
   return (
+    <>
+    
     <div className="bg-white">
      {product?( <div className="pt-6">
         <nav aria-label="Breadcrumb">
@@ -308,5 +312,6 @@ dispatch(fetchProductByIdAsync(id))
         </div>
       </div>):null}
     </div>
+    </>
   )
 }

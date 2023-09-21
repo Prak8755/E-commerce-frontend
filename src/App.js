@@ -1,7 +1,7 @@
-import React, { useDebugValue, useEffect } from "react";
+import React, {  useEffect } from "react";
 import LoginPage from "../src/pages/LoginPage";
 import SignUpPage from "../src/pages/SignUpPage";
-
+import PageNotFound from './pages/PageNotFound'
 
 
 
@@ -12,8 +12,15 @@ import CheckOut from "./pages/CheckOut";
 import ProductDetailPage from "./pages/ProductDetailPage";
 import Protected from "./features/auth/components/Protected";
 import { useDispatch, useSelector } from "react-redux";
-import { selectLoggedInUser } from "./features/auth/authSlice";
 import { fetchItemsByUserIdAsync } from "./features/cart/CartSlice";
+import OrderSuccessPage from "./pages/OrderSuccessPage";
+import UserOrderPage from "./pages/UserOrderPage";
+import UserProfilePage from './pages/UserProfilePage';
+import { fetchedLoggedInUserAsync, selectUserInfo } from "./features/user/userSlice";
+import { selectLoggedInUser } from "./features/auth/authSlice";
+import Logout from "./pages/Logout";
+import { ForgotPasswordPage } from "./pages/ForgotPasswordPage";
+
 
 const AppRouter = createBrowserRouter([
   {
@@ -30,6 +37,14 @@ const AppRouter = createBrowserRouter([
     element: <SignUpPage />,
   },
   {
+    path: "/logout",
+    element: <Logout/>,
+  },
+  {
+    path: "/forgot-password",
+    element: <ForgotPasswordPage/>,
+  },
+  {
     path: "/cart",
     element: <Protected><CartPage /></Protected>
   },
@@ -41,6 +56,22 @@ const AppRouter = createBrowserRouter([
     path: "/product-details/:id",
     element: <Protected><ProductDetailPage /></Protected>
   },
+  {
+    path: "/orders",
+    element: <Protected><UserOrderPage></UserOrderPage></Protected>
+  },
+  {
+    path: "/profile",
+    element: <Protected><UserProfilePage></UserProfilePage></Protected>
+  },
+  {
+path:'/order-success/:id',
+element:<Protected><OrderSuccessPage/></Protected>
+  },
+  {
+    path:'*',
+    element:<PageNotFound></PageNotFound>
+  }
 ]);
 
 
@@ -49,13 +80,14 @@ function App() {
   const dispatch=useDispatch();
 
   const user=useSelector(selectLoggedInUser);
-  
 
+  
   useEffect(()=>{
     if(user){
-      dispatch(fetchItemsByUserIdAsync(user.id))
+      dispatch(fetchItemsByUserIdAsync(user.id));
+      dispatch(fetchedLoggedInUserAsync(user.id))
     }  
-  },[dispatch,user?.id])
+  },[dispatch,user])
   
   return (
     <div>

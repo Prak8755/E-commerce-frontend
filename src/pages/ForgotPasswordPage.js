@@ -1,22 +1,17 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link, Navigate } from 'react-router-dom';
-import { checkUserAsync, selectError, selectLoggedInUser } from '../authSlice';
+import { useDispatch} from 'react-redux';
+import { Link } from 'react-router-dom';
+import { checkUserAsync } from '../features/auth/authSlice';
 
 
-export function Login() {
+export function ForgotPasswordPage() {
   const dispatch=useDispatch();
   const {register,watch,handleSubmit,formState:{errors}}=useForm();
 
-const user=useSelector(selectLoggedInUser);
-
-
-const errMsg=useSelector(selectError);
-
   return (
     <div>
-      {user&&<Navigate to='/' replace={true}></Navigate>}
+     
        <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <img
@@ -25,7 +20,7 @@ const errMsg=useSelector(selectError);
             alt="Your Company"
           />
           <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-            Sign in to your account
+            Enter your email address here 
           </h2>
         </div>
 
@@ -47,47 +42,21 @@ const errMsg=useSelector(selectError);
               {errors.email&&<p className='text-red-600 text-bold'>{errors.email.message}</p>}
             </div>
 
-            <div>
-              <div className="flex items-center justify-between">
-                <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
-                  Password
-                </label>
-                <div className="text-sm">
-                  <Link to='/forgot-password' className="font-semibold text-indigo-600 hover:text-indigo-500">
-                    Forgot password?
-                  </Link>
-                </div>
-              </div>
-              <div className="mt-2">
-                <input
-                  id="password"
-                  { ...register('password',{required:'password is mandatory'})}
-                  type="password"
-               
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                />
-                
-              </div>
-              {errors.password&&<p className='text-red-600 text-bold'>{errors.password.message}</p>}
-              {errMsg&&<p className='text-red-600 text-bold'>{errMsg.message}</p>}
-
-
-            </div>
 
             <div>
               <button
                 type="submit"
                 className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
-                Sign in
+                Send me code
               </button>
             </div>
           </form>
 
           <p className="mt-10 text-center text-sm text-gray-500">
-            New to App?{' '}
-            <Link to='/signup'  className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
-              sign up instead...
+            Remember you login details?{' '}
+            <Link to='/login'  className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
+              Login
             </Link>
           </p>
         </div>
