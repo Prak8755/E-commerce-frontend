@@ -8,7 +8,7 @@ import { createUserAsync, selectLoggedInUser } from '../authSlice';
 
 export function SignUp() {
   const dispatch=useDispatch();
-  const {register,watch,handleSubmit,formState:{errors}}=useForm();
+  const {register,handleSubmit,formState:{errors}}=useForm();
 
 const user=useSelector(selectLoggedInUser)
 
@@ -36,7 +36,7 @@ const user=useSelector(selectLoggedInUser)
               <div className="mt-2">
                 <input
                   id="email"
-               { ...register('email',{required:'email is mandatory',pattern:{value:/\b[\w\.-]+@[\w\.-]+\.\w{2,4}\b/gi,message:'email not valid'}})}
+              //  { ...register('email',{required:'email is mandatory',pattern:{value:/\b[\w\.-]+@[\w\.-]+\.\w{2,4}\b/gi,message:'email not valid'}})}
                   type="email"
                 
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"

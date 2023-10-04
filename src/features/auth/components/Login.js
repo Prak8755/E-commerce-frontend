@@ -7,7 +7,7 @@ import { checkUserAsync, selectError, selectLoggedInUser } from '../authSlice';
 
 export function Login() {
   const dispatch=useDispatch();
-  const {register,watch,handleSubmit,formState:{errors}}=useForm();
+  const {register,handleSubmit,formState:{errors}}=useForm();
 
 const user=useSelector(selectLoggedInUser);
 

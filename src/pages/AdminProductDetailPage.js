@@ -1,12 +1,13 @@
 import React from 'react'
 import Navbar from '../features/navbar/Navbar'
+import AdminProductDetails from '../features/Admin/AdminProductDetails'
 
 const AdminProductDetailPage = () => {
 
   return (
     <>
     <Navbar>
-<AdminProductDetailPage></AdminProductDetailPage>
+<AdminProductDetails></AdminProductDetails>
 </Navbar>
 </>
    

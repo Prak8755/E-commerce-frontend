@@ -8,6 +8,7 @@ import { useParams } from 'react-router-dom'
 import { selectLoggedInUser } from '../auth/authSlice'
 import { addToCartAsync } from '../cart/CartSlice'
 import { fetchProductByIdAsync, selectProductById } from '../product/productSlice'
+import { discountedPrice } from '../../utils/constant'
 
 
 
@@ -76,7 +77,7 @@ dispatch(fetchProductByIdAsync(id))
     <div className="bg-white">
      {product?( <div className="pt-6">
         <nav aria-label="Breadcrumb">
-          <ol role="list" className="mx-auto flex max-w-2xl items-center space-x-2 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
+          <ol className="mx-auto flex max-w-2xl items-center space-x-2 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
             {product.breadcrumbs&&product.breadcrumbs.map((breadcrumb) => (
               <li key={breadcrumb.id}>
                 <div className="flex items-center">
@@ -147,7 +148,8 @@ dispatch(fetchProductByIdAsync(id))
           {/* Options */}
           <div className="mt-4 lg:row-span-3 lg:mt-0">
             <h2 className="sr-only">Product information</h2>
-            <p className="text-3xl tracking-tight text-gray-900">{product.price}</p>
+            <p className="text-3xl tracking-tight text-gray-900 line-through">{product.price}</p>
+            <p className="text-3xl tracking-tight text-gray-900">{discountedPrice(product)}</p>
 
             {/* Reviews */}
             <div className="mt-6">
@@ -211,7 +213,7 @@ dispatch(fetchProductByIdAsync(id))
               <div className="mt-10">
                 <div className="flex items-center justify-between">
                   <h3 className="text-sm font-medium text-gray-900">Size</h3>
-                  <a href="#" className="text-sm font-medium text-indigo-600 hover:text-indigo-500">
+                  <a href="/" className="text-sm font-medium text-indigo-600 hover:text-indigo-500">
                     Size guide
                   </a>
                 </div>
@@ -293,7 +295,7 @@ dispatch(fetchProductByIdAsync(id))
               <h3 className="text-sm font-medium text-gray-900">Highlights</h3>
 
               <div className="mt-4">
-                <ul role="list" className="list-disc space-y-2 pl-4 text-sm">
+                <ul  className="list-disc space-y-2 pl-4 text-sm">
                   {highlights.map((highlight) => (
                     <li key={highlight} className="text-gray-400">
                       <span className="text-gray-600">{highlight}</span>

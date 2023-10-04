@@ -28,8 +28,10 @@ import {
   selectAllProducts,
   selectBrands,
   selectCategories,
+  selectProductLoadingStatus,
   selectTotalItems,
 } from "../productSlice";
+import { Vortex } from "react-loader-spinner";
 
 const sortOptions = [
   {
@@ -62,11 +64,11 @@ const sortOptions = [
 
 
 //for paginatin
-const items = [
-  { id: 1, title: 'Back End Developer', department: 'Engineering', type: 'Full-time', location: 'Remote' },
-  { id: 2, title: 'Front End Developer', department: 'Engineering', type: 'Full-time', location: 'Remote' },
-  { id: 3, title: 'User Interface Designer', department: 'Design', type: 'Full-time', location: 'Remote' },
-]
+// const items = [
+//   { id: 1, title: 'Back End Developer', department: 'Engineering', type: 'Full-time', location: 'Remote' },
+//   { id: 2, title: 'Front End Developer', department: 'Engineering', type: 'Full-time', location: 'Remote' },
+//   { id: 3, title: 'User Interface Designer', department: 'Design', type: 'Full-time', location: 'Remote' },
+// ]
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -152,7 +154,7 @@ const pagination={_page:page,_limit:ITEMS_PER_PAGE}
   useEffect(()=>{
     dispatch(fetchAllBrandsAsync());
     dispatch(fetchAllCategoriesAsync())
-  },[])
+  },[dispatch])
 
   return (
     <>
@@ -262,8 +264,23 @@ const pagination={_page:page,_limit:ITEMS_PER_PAGE}
 export default ProductList;
 
 function ProductGrid({ products }) {
+
+  const productStatus=useSelector(selectProductLoadingStatus);
+
   return (
     <>
+    {
+     
+    productStatus==='loading'?
+     <Vortex
+    visible={true}
+    height="100"
+    width="100"
+    ariaLabel="vortex-loading"
+    wrapperStyle={{}}
+    wrapperClass="vortex-wrapper"
+    colors={['red', 'green', 'blue', 'yellow', 'orange', 'purple']}
+  />:
       <div className="lg:col-span-3">
         {/* Product list page */}
         <div className="bg-white">
@@ -321,6 +338,7 @@ function ProductGrid({ products }) {
           </div>
         </div>
       </div>
+}
     </>
   );
 }

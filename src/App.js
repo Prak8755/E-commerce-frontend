@@ -2,11 +2,12 @@ import React, {  useEffect } from "react";
 import LoginPage from "../src/pages/LoginPage";
 import SignUpPage from "../src/pages/SignUpPage";
 import PageNotFound from './pages/PageNotFound'
-
+import { transitions, positions, Provider } from "react-alert";
+import AlertTemplate from "react-alert-template-basic";
 
 
 import Home from "./pages/Home";
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import {  RouterProvider, createBrowserRouter } from "react-router-dom";
 import CartPage from "./pages/CartPage";
 import CheckOut from "./pages/CheckOut";
 import ProductDetailPage from "./pages/ProductDetailPage";
@@ -16,13 +17,15 @@ import { fetchItemsByUserIdAsync } from "./features/cart/CartSlice";
 import OrderSuccessPage from "./pages/OrderSuccessPage";
 import UserOrderPage from "./pages/UserOrderPage";
 import UserProfilePage from './pages/UserProfilePage';
-import { fetchedLoggedInUserAsync, selectUserInfo } from "./features/user/userSlice";
+import { fetchedLoggedInUserAsync} from "./features/user/userSlice";
 import { selectLoggedInUser } from "./features/auth/authSlice";
 import Logout from "./pages/Logout";
 import { ForgotPasswordPage } from "./pages/ForgotPasswordPage";
 import ProtectedAdmin from "./features/Admin/ProtectedAdmin";
 import AdminHome from "./pages/AdminHome";
 import AdminProductDetailPage from "./pages/AdminProductDetailPage";
+import AdminProductFormPage from "./pages/AdminProductFormPage";
+import AdminOrderPage from './pages/AdminOrderPage';
 
 
 const AppRouter = createBrowserRouter([
@@ -33,7 +36,7 @@ const AppRouter = createBrowserRouter([
   {
     path: "/admin",
     element:<ProtectedAdmin>
-      <AdminHome></AdminHome>
+      <AdminHome/>
     </ProtectedAdmin>
   },
   {
@@ -69,6 +72,18 @@ const AppRouter = createBrowserRouter([
     element: <ProtectedAdmin><AdminProductDetailPage /></ProtectedAdmin>
   },
   {
+    path: "/admin/orders",
+    element: <ProtectedAdmin><AdminOrderPage></AdminOrderPage></ProtectedAdmin>
+  },
+  {
+    path: "/admin/product-form",
+    element: <ProtectedAdmin><AdminProductFormPage></AdminProductFormPage></ProtectedAdmin>
+  },
+  {
+    path: "/admin/product-form/:id",
+    element: <ProtectedAdmin><AdminProductFormPage></AdminProductFormPage></ProtectedAdmin>
+  },
+  {
     path: "/orders",
     element: <Protected><UserOrderPage></UserOrderPage></Protected>
   },
@@ -88,24 +103,44 @@ element:<Protected><OrderSuccessPage/></Protected>
 
 
 function App() {
-
+  
+  const options = {
+    // you can also just use 'bottom center'
+    position: positions.BOTTOM_CENTER,
+    timeout: 5000,
+    offset: '30px', 
+    // you can also just use 'scale'
+    transition: transitions.SCALE
+  }
+  
   const dispatch=useDispatch();
 
   const user=useSelector(selectLoggedInUser);
 
-  
+   
+
   useEffect(()=>{
-    if(user){
+
+    if(user&&user.role==='user'){
       dispatch(fetchItemsByUserIdAsync(user.id));
-      dispatch(fetchedLoggedInUserAsync(user.id))
+      dispatch(fetchedLoggedInUserAsync(user.id));
+ 
     }  
+   
+
   },[dispatch,user])
   
   return (
     <div>
+      <Provider template={AlertTemplate} {...options}>
      <RouterProvider router={AppRouter}/>
+     </Provider>
     </div>
   );
 }
 
 export default App;
+
+
+//signup.js--commented one line 
+

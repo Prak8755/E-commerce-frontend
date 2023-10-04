@@ -8,6 +8,7 @@ const AdminHome = () => {
   return (
     <>
     <Navbar>
+      <h1 className='text-3xl'>Admin Page</h1>
     <AdminProductList></AdminProductList>
     </Navbar>
     </>

@@ -30,11 +30,11 @@ function handleDelete(e,id){
 }
 
 //
-const {register,watch,handleSubmit,reset,formState:{errors}}=useForm();
+const {register,handleSubmit,reset,formState:{errors}}=useForm();
 
 
   const [open, setOpen] = useState(true);
-
+console.log(open,errors);
   //for selecting address and payment menthod
   const [selectedAddress,setSelectedAddress]=useState('');
   const [paymentMethod,setPaymentMethod]=useState('cash')
@@ -240,7 +240,7 @@ reset();
                   Choose from Existing one.
                 </p>
 
-                <ul role="list" className="divide-y divide-gray-100">
+                <ul  className="divide-y divide-gray-100">
                   {user.address.map((address,index) => (
                     <li
                     className="flex justify-between gap-x-6 py-5"
@@ -337,7 +337,7 @@ reset();
         <h1 className="text-3xl text-center text-bold py-4">Cart</h1>
       <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
         <div className="flow-root">
-          <ul role="list" className="-my-6 divide-y divide-gray-200">
+          <ul  className="-my-6 divide-y divide-gray-200">
             {items.map((product) => (
               <li key={product.id} className="flex py-6">
                 <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">

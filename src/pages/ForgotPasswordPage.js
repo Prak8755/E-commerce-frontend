@@ -7,7 +7,7 @@ import { checkUserAsync } from '../features/auth/authSlice';
 
 export function ForgotPasswordPage() {
   const dispatch=useDispatch();
-  const {register,watch,handleSubmit,formState:{errors}}=useForm();
+  const {register,handleSubmit,formState:{errors}}=useForm();
 
   return (
     <div>

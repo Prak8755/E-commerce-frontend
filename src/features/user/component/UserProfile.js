@@ -7,8 +7,8 @@ import { updateUserAsync } from "../../auth/authSlice";
 import { useForm } from "react-hook-form";
 
 const UserProfile = () => {
-  const {register,setValue,watch,handleSubmit,reset,formState:{errors}}=useForm();
-
+  const {register,setValue,handleSubmit,reset,formState:{errors}}=useForm();
+console.log(errors);
   const user = useSelector(selectUserInfo);
   const dispatch = useDispatch();
 

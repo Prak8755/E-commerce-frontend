@@ -4,19 +4,18 @@ import { Bars3Icon, ShoppingCartIcon, XMarkIcon } from '@heroicons/react/24/outl
 import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { selectCart } from '../cart/CartSlice'
+import {selectLoggedInUser} from '../auth/authSlice'
 
-const user = {
-  name: 'Tom Cook',
-  email: 'tom@example.com',
-  imageUrl:
-    'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-}
+// const user = {
+//   name: 'Tom Cook',
+//   email: 'tom@example.com',
+//   imageUrl:
+//     'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+// }
 const navigation = [
-  { name: 'Dashboard', href: '#', current: true },
-  { name: 'Team', href: '#', current: false },
-  { name: 'Projects', href: '#', current: false },
-  { name: 'Calendar', href: '#', current: false },
-  { name: 'Reports', href: '#', current: false },
+  { name: 'Products', link: '/', user: true },
+  {name:'Products',link:'/admin',admin:true},
+  {name:'Orders',link:'/admin/orders',admin:true}
 ]
 const userNavigation = [
   { name: 'Your Profile', link: '/profile' },
@@ -30,6 +29,7 @@ function classNames(...classes) {
 
 
 const Navbar = ({children}) => {
+  const user=useSelector(selectLoggedInUser)
 
   const items=useSelector(selectCart);
 
@@ -47,7 +47,7 @@ const Navbar = ({children}) => {
                      <Link to='/' className='cursor-pointer'>
                      <img
                         className="h-8 w-8"
-                        src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
+                        src="https://cdn.pixabay.com/photo/2016/12/27/13/10/logo-1933884_1280.png"
                         alt="Your Company"
                       />
                      </Link>
@@ -55,9 +55,10 @@ const Navbar = ({children}) => {
                     <div className="hidden md:block">
                       <div className="ml-10 flex items-baseline space-x-4">
                         {navigation.map((item) => (
-                          <a
-                            key={item.name}
-                            href={item.href}
+                       user.role==='user'&&item.user?  <Link
+                       to={item.link}
+                          key={item.name}
+                           
                             className={classNames(
                               item.current
                                 ? 'bg-gray-900 text-white'
@@ -67,7 +68,20 @@ const Navbar = ({children}) => {
                             aria-current={item.current ? 'page' : undefined}
                           >
                             {item.name}
-                          </a>
+                          </Link>:
+                         user.role==='admin'&& item.admin&& <Link
+                          key={item.name}
+                          to={item.link}
+                            className={classNames(
+                              item.current
+                                ? 'bg-gray-900 text-white'
+                                : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                              'rounded-md px-3 py-2 text-sm font-medium'
+                            )}
+                            aria-current={item.current ? 'page' : undefined}
+                          >
+                            {item.name}
+                          </Link>
                         ))}
                       </div>
                     </div>

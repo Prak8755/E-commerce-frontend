@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchedLoggedInUserOrdersAsync, selectUserInfo, selectUserOrders } from '../userSlice';
-import { selectLoggedInUser } from '../../auth/authSlice';
+import { fetchedLoggedInUserOrdersAsync, selectUserInfo} from '../userSlice';
+
 import { selectCart } from '../../cart/CartSlice';
 
 const UserOrder = () => {
@@ -34,7 +34,7 @@ dispatch(fetchedLoggedInUserOrdersAsync(user.id))
   <h1 className='text-3xl mb-3'>Order#{order.id}</h1>
   <h3 className='text-xl mb-3 text-red-800'>Order Status :{order.status}</h3>
 <div className="flow-root">
-  <ul role="list" className="-my-6 divide-y divide-gray-200">
+  <ul  className="-my-6 divide-y divide-gray-200">
     {order?.items.map((product,i) => (
       <li key={i} className="flex py-6">
         <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
